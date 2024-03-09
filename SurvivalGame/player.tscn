@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx68uhoa1ylri"]
+[gd_scene load_steps=8 format=3 uid="uid://bx68uhoa1ylri"]
 
 [ext_resource type="Script" path="res://playerLinks.gd" id="1_8vb2n"]
 [ext_resource type="Texture2D" uid="uid://k1sufie41pvv" path="res://icon.svg" id="1_d4hru"]
@@ -19,6 +19,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_arul2"]
+radius = 25.0799
+
 [node name="Player" type="Node2D"]
 script = ExtResource("1_8vb2n")
 
@@ -37,4 +40,11 @@ sprite_frames = SubResource("SpriteFrames_1m1qj")
 zoom = Vector2(3, 3)
 limit_right = 10000001
 
+[node name="Area2D" type="Area2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+shape = SubResource("CircleShape2D_arul2")
+
 [node name="CanvasLayer" parent="." instance=ExtResource("4_ve5mv")]
+
+[connection signal="area_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_entered"]
