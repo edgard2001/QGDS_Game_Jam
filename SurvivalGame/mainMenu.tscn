@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://lufwyfni7cyp"]
+
+[ext_resource type="Script" path="res://mainMenu.gd" id="1_u46t0"]
+[ext_resource type="Script" path="res://Button.gd" id="2_eqjnk"]
+
+[node name="mainMenu" type="Node2D"]
+script = ExtResource("1_u46t0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_left = 373.0
+offset_top = 113.0
+offset_right = 420.0
+offset_bottom = 153.0
+scale = Vector2(9.8, 5.72)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLAY"
+script = ExtResource("2_eqjnk")
