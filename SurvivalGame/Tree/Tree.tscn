@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://bt5docaxwgo5b"]
+
+[ext_resource type="Texture2D" uid="uid://hvevmqgv6ya1" path="res://Assets/World/Tree/tree_animated.png" id="1_le4pp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y3dsa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_557xl"]
+radius = 13.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_366y8"]
+atlas = ExtResource("1_le4pp")
+region = Rect2(0, 0, 50, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jdmp"]
+atlas = ExtResource("1_le4pp")
+region = Rect2(50, 0, 50, 54)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i0g1m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_366y8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jdmp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_y3dsa")
+
+[node name="Area2D" type="Area2D" parent="." groups=["resource"]]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_557xl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -27)
+sprite_frames = SubResource("SpriteFrames_i0g1m")
