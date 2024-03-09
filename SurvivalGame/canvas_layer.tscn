@@ -45,6 +45,12 @@ size_flags_horizontal = 0
 text = "Iron"
 label_settings = SubResource("LabelSettings_70byn")
 
+[node name="Label4" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Health"
+label_settings = SubResource("LabelSettings_70byn")
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 
@@ -61,6 +67,12 @@ text = "0"
 label_settings = SubResource("LabelSettings_70byn")
 
 [node name="Label4" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0"
+label_settings = SubResource("LabelSettings_70byn")
+
+[node name="Label5" type="Label" parent="HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "0"

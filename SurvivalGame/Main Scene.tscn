@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ba7825xjv1c26"]
+[gd_scene load_steps=5 format=3 uid="uid://ba7825xjv1c26"]
 
 [ext_resource type="PackedScene" uid="uid://ccb602fpoawow" path="res://tilemap.tscn" id="2_wh6vb"]
 [ext_resource type="PackedScene" uid="uid://bx68uhoa1ylri" path="res://player.tscn" id="2_wt6er"]
+[ext_resource type="PackedScene" uid="uid://ca8f88uuw4c2j" path="res://Demon.tscn" id="4_linoj"]
+[ext_resource type="PackedScene" uid="uid://bi6dn1ffi2xtn" path="res://Wolf.tscn" id="4_mq25g"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_wt6er")]
 
 [node name="TileMap" parent="." instance=ExtResource("2_wh6vb")]
+
+[node name="Demon" parent="." instance=ExtResource("4_linoj")]
+position = Vector2(893, 52)
+
+[node name="Wolf" parent="." instance=ExtResource("4_mq25g")]

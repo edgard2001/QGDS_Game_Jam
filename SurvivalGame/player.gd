@@ -2,8 +2,9 @@ extends CharacterBody2D
 
 # Speed of the character
 var speed = 200
-var health = 100
+@export var health = 100
 @export var canvas : CanvasLayer
+@export var enemyAttacking = false
 
 var tilemap: TileMap
 func _ready():
@@ -25,7 +26,8 @@ func _process(delta):
 		
 	if health <=0:
 		_dead()
-	
+	var healthLabel = $"../CanvasLayer/HBoxContainer/VBoxContainer2/Label5" 
+	healthLabel.text = str(health)
 	velocity = input_vector * speed
 	# Move the character
 	move_and_slide()
@@ -54,3 +56,13 @@ func _on_area_2d_area_entered(area):
 		tilemap.set_cell(1, pos + Vector2i(1, -3))
 		
 		tilemap.set_cell(2, pos)
+
+
+func _on_area_2d_2_area_entered(area):
+	if "Enemy" in area.get_groups():
+		enemyAttacking = true
+		print_debug(enemyAttacking)
+	else:
+		enemyAttacking = false
+		print_debug(enemyAttacking)
+	pass # Replace with function body.

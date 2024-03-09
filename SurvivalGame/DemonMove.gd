@@ -1,12 +1,24 @@
 extends CharacterBody2D
 
-var speed = 150
-var player
-
+@export var speed = .1
+var player_chase = true
+var player = null
+var playerNode = null
+@export var enemyHealth = 30
 func _ready():
-	player = get_node("/root/MainScene/Player")  # Adjust the path based on your scene structure
+	player = $"../../Player/CharacterBody2D"
+	playerNode = $"../../Player"
+func _physics_process(delta):
+	if player_chase:
+		
+		global_position += (player.global_position - global_position) * speed * delta
+		move_and_slide()
+	if global_position.distance_to(player.global_position) <= 45:
 
-func _process(delta):
-	var direction = (player.global_position - global_position).normalized()
-	var velocity = direction * speed
-	move_and_slide()
+		speed = 0
+		if player.health >= 1:
+			player.health -= 1
+	else:
+		speed = 2
+	if enemyHealth <= 0:
+		queue_free()
