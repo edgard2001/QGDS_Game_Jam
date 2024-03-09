@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://ca8f88uuw4c2j"]
+[gd_scene load_steps=5 format=3 uid="uid://ca8f88uuw4c2j"]
+
+[ext_resource type="Texture2D" uid="uid://djvm25vt3r6lm" path="res://Assets/Demon/cacodemon.png" id="1_18uva"]
+[ext_resource type="Script" path="res://DemonMove.gd" id="2_2yi8g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pw0p6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mpgi7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_18uva")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Demon" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_2yi8g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_pw0p6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_mpgi7")
