@@ -1069,3 +1069,9 @@ navigation_polygon = SubResource("NavigationPolygon_lykyg")
 position = Vector2(893, 52)
 
 [node name="Wolf" parent="NavigationRegion2D" instance=ExtResource("5_ekdtd")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

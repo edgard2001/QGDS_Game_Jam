@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 # Speed of the character
 var speed = 150
+const maxHealth: float = 300
 var health: float = 300
 @export var canvas : CanvasLayer
 
@@ -86,7 +87,13 @@ func _on_area_2d_area_entered(area):
 	if "tree" in area.get_groups():
 		tree = area
 		area.get_child(1).visible = true
-
+	if "food" in area.get_groups():
+		print_debug("apples")
+		health += 30
+		if health > maxHealth:
+			health = maxHealth
+		var apple = area.get_parent()
+		apple.queue_free()
 func _on_area_2d_area_exited(area):
 	if "tree" in area.get_groups():
 		tree = null
