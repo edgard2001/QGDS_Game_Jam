@@ -1,36 +1,32 @@
 extends CharacterBody2D
 
 @export var speed = 100
-var enemey = null
+var enemy = null
 var player_chase = true
 var player = null
 func _ready():
 	player = $"../../Player/CharacterBody2D"
 	
 var moving = false
+var target
+
 func _physics_process(delta):
-	"""if player.enemyAttacking == true:
-		enemey = $"../../Demon/CharacterBody2D"
-		player_chase = false
-	else:
-		player_chase = true
-	if player_chase:
-		global_position += (player.global_position - global_position) * speed * delta
-		move_and_slide()
-	else:
-		global_position += (enemey.global_position - global_position) * speed * delta
-		move_and_slide()
-		if global_position.distance_to(enemey.global_position) <= 50:
-			
-			speed = 1
-			if enemey.enemyHealth >= 1:
-				print_debug(enemey.enemyHealth)
-				enemey.enemyHealth -= 1
-		else:
-			speed = 3
-	"""
 	
-	var target = player.global_position + (global_position - player.global_position).normalized() * 20
+	player_chase = true
+	var enemies = []
+	for area in player.get_enemies():
+		if "Enemy" in area.get_groups():
+			player_chase = false
+			enemies.append(area)
+		
+	if player_chase:
+		target = player.global_position + (global_position - player.global_position).normalized() * 20
+	else:
+		print("chasing")
+		enemy = enemies[0]
+		target = enemy.global_position + (global_position - enemy.global_position).normalized() * 20
+		
+	
 	$Node2D/NavigationAgent2D.target_position = target
 	if (global_position - target).length_squared() > 1 and $Node2D/NavigationAgent2D.is_target_reachable():
 
@@ -50,4 +46,8 @@ func _physics_process(delta):
 	else:
 		moving = false
 		$Node2D/AnimatedSprite2D.play("idle")
+		
+	if !player_chase and global_position.distance_to(target) <= 50:	
+		if enemy.get_parent().enemyHealth >= 1:
+			enemy.get_parent().enemyHealth -= 1
 	pass
