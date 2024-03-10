@@ -1,19 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca8f88uuw4c2j"]
+[gd_scene load_steps=8 format=3 uid="uid://ca8f88uuw4c2j"]
 
-[ext_resource type="Texture2D" uid="uid://djvm25vt3r6lm" path="res://Assets/Demon/cacodemon.png" id="1_18uva"]
 [ext_resource type="Script" path="res://DemonMove.gd" id="2_2yi8g"]
+[ext_resource type="Texture2D" uid="uid://d1lhisblhrd2p" path="res://Assets/bear/bear.png" id="2_cgvop"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pw0p6"]
 radius = 8.06226
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yovky"]
+atlas = ExtResource("2_cgvop")
+region = Rect2(3, 64, 75, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bejmm"]
+atlas = ExtResource("2_cgvop")
+region = Rect2(78, 64, 75, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w4u4"]
+atlas = ExtResource("2_cgvop")
+region = Rect2(153, 64, 75, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mpgi7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_18uva")
+"texture": SubResource("AtlasTexture_yovky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bejmm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w4u4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bejmm")
 }],
 "loop": true,
-"name": &"default",
+"name": &"Run",
 "speed": 5.0
 }]
 
@@ -25,16 +46,12 @@ y_sort_enabled = true
 script = ExtResource("2_2yi8g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+scale = Vector2(4, 4)
 shape = SubResource("CircleShape2D_pw0p6")
 disabled = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-y_sort_enabled = true
-position = Vector2(0, -15)
-scale = Vector2(0.2, 0.2)
-sprite_frames = SubResource("SpriteFrames_mpgi7")
-
 [node name="Area2D" type="Area2D" parent="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(4, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
 shape = SubResource("CircleShape2D_pw0p6")
@@ -42,14 +59,31 @@ shape = SubResource("CircleShape2D_pw0p6")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
 avoidance_enabled = true
 radius = 100.0
-debug_enabled = true
 
 [node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
-z_index = 1
-offset_left = -25.0
-offset_top = -50.0
-offset_right = 25.0
-offset_bottom = -45.0
-pivot_offset = Vector2(25, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -65.0
+offset_right = 20.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.967739, 1)
+pivot_offset = Vector2(20, 5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 value = 100.0
 show_percentage = false
+
+[node name="Node2D" type="Node2D" parent="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/Node2D"]
+y_sort_enabled = true
+position = Vector2(1, -18)
+sprite_frames = SubResource("SpriteFrames_mpgi7")
+animation = &"Run"
+speed_scale = 3.0

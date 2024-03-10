@@ -20,11 +20,11 @@ func _physics_process(delta):
 			enemies.append(area)
 		
 	if player_chase:
-		target = player.global_position + (global_position - player.global_position).normalized() * 20
+		target = player.global_position + (global_position - player.global_position).normalized() * 30
 	else:
 		print("chasing")
 		enemy = enemies[0]
-		target = enemy.global_position + (global_position - enemy.global_position).normalized() * 20
+		target = enemy.global_position + (global_position - enemy.global_position).normalized() * 30
 		
 	
 	$Node2D/NavigationAgent2D.target_position = target
@@ -35,7 +35,7 @@ func _physics_process(delta):
 		
 		if vel.x < 0:
 			$Node2D.scale.x = -1
-		elif vel.x > 0:
+		elif vel.x >= 0:
 			$Node2D.scale.x = 1
 			
 		if !moving:
@@ -44,10 +44,11 @@ func _physics_process(delta):
 			
 		move_and_slide()
 	else:
-		moving = false
-		$Node2D/AnimatedSprite2D.play("idle")
+		if player_chase:
+			moving = false
+			$Node2D/AnimatedSprite2D.play("idle")
 		
 	if !player_chase and global_position.distance_to(target) <= 50:	
-		if enemy.get_parent().enemyHealth >= 1:
-			enemy.get_parent().enemyHealth -= 1
+		if enemy.get_parent().enemyHealth >= 0:
+			enemy.get_parent().enemyHealth -= .1
 	pass

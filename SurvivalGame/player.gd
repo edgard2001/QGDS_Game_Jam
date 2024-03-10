@@ -43,35 +43,39 @@ func _process(delta):
 	
 	velocity = input_vector * speed
 	# Move the character
-	move_and_slide()
 	
-	
-	if chopping and tree != null:
-		var text = $"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text
-		$"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text = str(int(text) + 1)
-		if tree.take_damage(2): 
-			tree = null
-			
 	if Input.is_action_just_pressed("Chop"):
 		chopping = true
 	elif Input.is_action_just_released("Chop"):
 		chopping = false
-		
+		if tree != null && tree.health >0:
+			tree.health = tree.MAX_HEALTH
+	if !chopping:
+		move_and_slide()
 	moving = velocity.length() > 0
 
 
 func _physics_process(delta):
+	if chopping and tree != null:
+		if tree.take_damage(.8): 
+			var text = $"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text
+			$"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text = str(int(text)  + 50)
+			tree = null
+			
 	if speed == 0:
 		return
 		
-	if moving:
+	if moving && !chopping:
 		$Node2D/AnimatedSprite2D.play("run")
 	elif !chopping:
 		$Node2D/AnimatedSprite2D.animation = "default"
 		$Node2D/AnimatedSprite2D.frame = 0
 
 	if chopping:
-		$Node2D/AnimatedSprite2D.play("chop")
+		if !moving:
+			$Node2D/AnimatedSprite2D.play("chop")
+		elif moving:
+			$Node2D/AnimatedSprite2D.play("choprun")
 	
 
 func _dead():

@@ -10,6 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	$"ProgressBar".value = health / MAX_HEALTH * 100
 	pass
 
 func take_damage(damage: float) -> bool:

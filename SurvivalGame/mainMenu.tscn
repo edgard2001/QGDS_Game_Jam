@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://lufwyfni7cyp"]
+[gd_scene load_steps=5 format=3 uid="uid://lufwyfni7cyp"]
 
 [ext_resource type="Script" path="res://mainMenu.gd" id="1_u46t0"]
 [ext_resource type="Script" path="res://Button.gd" id="2_eqjnk"]
+[ext_resource type="AudioStream" uid="uid://cficqjsitilun" path="res://Assets/music/SurviveMenu.wav" id="3_ffnn4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wkqb3"]
 font_size = 60
@@ -73,3 +74,8 @@ grow_vertical = 2
 scale = Vector2(0.979487, 0.993399)
 text = "PLAY"
 label_settings = SubResource("LabelSettings_wkqb3")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ffnn4")
+volume_db = -25.0
+autoplay = true
