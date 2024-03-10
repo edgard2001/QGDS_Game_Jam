@@ -4,7 +4,7 @@ extends CharacterBody2D
 var player_chase = true
 var player = null
 var playerNode = null
-@export var enemyHealth = 30
+@export var enemyHealth: float = 30
 func _ready():
 	player = $"../../Player/CharacterBody2D"
 	playerNode = $"../../Player"
@@ -16,10 +16,10 @@ func _physics_process(delta):
 	if global_position.distance_to(player.global_position) <= 45:
 		if player.health >= 1:
 			player.health -= 1
-	#else:
-		#speed = 2
-	#if enemyHealth <= 0:
-		#queue_free()
+			
+	$ProgressBar.value = enemyHealth / 3 * 10
+	if enemyHealth <= 0:
+		queue_free()
 		
 	var target = player.global_position + (global_position - player.global_position).normalized() * 20
 	$NavigationAgent2D.target_position = target

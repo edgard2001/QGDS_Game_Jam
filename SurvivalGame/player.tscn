@@ -79,6 +79,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73xqr"]
+radius = 14.6688
 
 [node name="Player" type="Node2D"]
 y_sort_enabled = true
@@ -139,4 +140,3 @@ show_percentage = false
 
 [connection signal="area_entered" from="CharacterBody2D/Node2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="CharacterBody2D/Node2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_exited"]
-[connection signal="area_entered" from="CharacterBody2D/Area2D2" to="CharacterBody2D" method="_on_area_2d_2_area_entered"]

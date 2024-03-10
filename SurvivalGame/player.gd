@@ -98,3 +98,6 @@ func _on_area_2d_area_exited(area):
 	if "tree" in area.get_groups():
 		tree = null
 		area.get_child(1).visible = false
+		
+func get_enemies():
+	return $Area2D2.get_overlapping_areas()
