@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://DemonMove.gd" id="2_2yi8g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pw0p6"]
-radius = 27.074
+radius = 8.06226
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mpgi7"]
 animations = [{
@@ -18,14 +18,19 @@ animations = [{
 }]
 
 [node name="Demon" type="Node2D"]
+y_sort_enabled = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("2_2yi8g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CircleShape2D_pw0p6")
+disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+y_sort_enabled = true
+position = Vector2(0, -15)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_mpgi7")
 
@@ -33,3 +38,8 @@ sprite_frames = SubResource("SpriteFrames_mpgi7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
 shape = SubResource("CircleShape2D_pw0p6")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+avoidance_enabled = true
+radius = 100.0
+debug_enabled = true

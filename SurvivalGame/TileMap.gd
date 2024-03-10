@@ -9,12 +9,11 @@ func _ready():
 	#		set_cell(1, pos, 2, TreeTrunkTileCoords + Vector2i(0, -1))
 	
 	for pos in get_used_cells(0):
-		if randf() < 0.01:
+		if randf() < 0.02:
 			var tree = TREE.instantiate()
 			tree.global_position = map_to_local(pos)
 			$NavigationRegion2D.add_child(tree)
 			
-	
 	$NavigationRegion2D.bake_navigation_polygon()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -6,6 +6,7 @@ const MAX_HEALTH: float = 100;
 func _ready():
 	health = MAX_HEALTH
 	$ProgressBar.value = health / MAX_HEALTH * 100
+	$ProgressBar.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -20,5 +21,6 @@ func take_damage(damage: float) -> bool:
 		$"../AnimatedSprite2D".frame = 1
 		$ProgressBar.visible = false
 		monitorable = false
+		$"../CollisionShape2D".disabled = true
 	return health == 0
 	

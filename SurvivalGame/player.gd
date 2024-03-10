@@ -2,12 +2,14 @@ extends CharacterBody2D
 
 # Speed of the character
 var speed = 150
-var health = 100
+var health: float = 300
 @export var canvas : CanvasLayer
 
 var tilemap: TileMap
 func _ready():
 	tilemap = $"../../TileMap"
+	$Node2D/AnimatedSprite2D.animation = "default"
+	$Node2D/AnimatedSprite2D.frame = 0
 
 
 var moving = false
@@ -33,39 +35,42 @@ func _process(delta):
 		input_vector = input_vector.normalized()
 		
 	if health <=0:
+		health = 0
 		_dead()
+		
+	$ProgressBar.value = health / 3
 	
 	velocity = input_vector * speed
 	# Move the character
 	move_and_slide()
 	
 	
-	if Input.is_action_just_pressed("Chop") and tree != null:
+	if chopping and tree != null:
 		var text = $"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text
 		$"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text = str(int(text) + 1)
-		if tree.take_damage(40): 
+		if tree.take_damage(2): 
 			tree = null
 			
 	if Input.is_action_just_pressed("Chop"):
 		chopping = true
 	elif Input.is_action_just_released("Chop"):
-		chopping = true
+		chopping = false
 		
 	moving = velocity.length() > 0
 
 
 func _physics_process(delta):
-	
-	
-	
+	if speed == 0:
+		return
+		
 	if moving:
 		$Node2D/AnimatedSprite2D.play("run")
-	else:
-		$Node2D/AnimatedSprite2D.stop()
+	elif !chopping:
+		$Node2D/AnimatedSprite2D.animation = "default"
+		$Node2D/AnimatedSprite2D.frame = 0
 
 	if chopping:
 		$Node2D/AnimatedSprite2D.play("chop")
-	
 	
 
 func _dead():
@@ -75,9 +80,14 @@ func _dead():
 var tree: Area2D
 	
 func _on_area_2d_area_entered(area):
+	if tree != null:
+		tree.get_child(1).visible = false
+		
 	if "tree" in area.get_groups():
 		tree = area
+		area.get_child(1).visible = true
 
 func _on_area_2d_area_exited(area):
 	if "tree" in area.get_groups():
 		tree = null
+		area.get_child(1).visible = false

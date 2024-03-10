@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bx68uhoa1ylri"]
+[gd_scene load_steps=16 format=3 uid="uid://bx68uhoa1ylri"]
 
 [ext_resource type="Script" path="res://playerLinks.gd" id="1_8vb2n"]
 [ext_resource type="Script" path="res://player.gd" id="1_qkm0k"]
@@ -19,13 +19,25 @@ region = Rect2(0, 32, 16, 32)
 atlas = ExtResource("3_rte3j")
 region = Rect2(16, 32, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_21ue5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6qna"]
 atlas = ExtResource("3_rte3j")
 region = Rect2(0, 0, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tj5b8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw54f"]
+atlas = ExtResource("3_rte3j")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11edu"]
 atlas = ExtResource("3_rte3j")
 region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slh88"]
+atlas = ExtResource("3_rte3j")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hj5a"]
+atlas = ExtResource("3_rte3j")
+region = Rect2(48, 0, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g40t0"]
 animations = [{
@@ -40,38 +52,51 @@ animations = [{
 "name": &"chop",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6qna")
+}],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_21ue5")
+"texture": SubResource("AtlasTexture_kw54f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tj5b8")
+"texture": SubResource("AtlasTexture_11edu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slh88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hj5a")
 }],
 "loop": true,
 "name": &"run",
-"speed": 2.0
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73xqr"]
 
 [node name="Player" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_8vb2n")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_qkm0k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+y_sort_enabled = true
 position = Vector2(0, -5)
 scale = Vector2(1, 0.600001)
 shape = SubResource("CircleShape2D_ge434")
 
 [node name="Node2D" type="Node2D" parent="CharacterBody2D"]
+y_sort_enabled = true
 
 [node name="Area2D" type="Area2D" parent="CharacterBody2D/Node2D"]
 position = Vector2(18, -16)
@@ -82,10 +107,12 @@ scale = Vector2(2.38524, 3.42)
 shape = SubResource("CircleShape2D_r7dg1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/Node2D"]
+z_as_relative = false
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_g40t0")
+animation = &"run"
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 zoom = Vector2(3, 3)
@@ -99,6 +126,7 @@ scale = Vector2(12, 12)
 shape = SubResource("CircleShape2D_73xqr")
 
 [node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
+z_index = 1
 offset_left = -10.0
 offset_top = -39.0
 offset_right = 10.0
