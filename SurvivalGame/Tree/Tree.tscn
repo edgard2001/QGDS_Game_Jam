@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt5docaxwgo5b"]
+[gd_scene load_steps=8 format=3 uid="uid://bt5docaxwgo5b"]
 
 [ext_resource type="Texture2D" uid="uid://hvevmqgv6ya1" path="res://Assets/World/Tree/tree_animated.png" id="1_le4pp"]
+[ext_resource type="Script" path="res://Tree/Tree.gd" id="1_r6asl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y3dsa"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_557xl"]
-radius = 13.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_366y8"]
 atlas = ExtResource("1_le4pp")
@@ -29,6 +27,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_557xl"]
+radius = 2.11736
+
 [node name="StaticBody2D" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -36,14 +37,42 @@ position = Vector2(0, -4)
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_y3dsa")
 
-[node name="Area2D" type="Area2D" parent="." groups=["resource"]]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -9)
-shape = SubResource("CircleShape2D_557xl")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 texture_filter = 1
 texture_repeat = 1
 position = Vector2(0, -27)
 sprite_frames = SubResource("SpriteFrames_i0g1m")
+
+[node name="Area2D" type="Area2D" parent="." groups=["tree"]]
+y_sort_enabled = true
+script = ExtResource("1_r6asl")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -18)
+scale = Vector2(3.30581, 7.02919)
+shape = SubResource("CircleShape2D_557xl")
+
+[node name="ProgressBar" type="ProgressBar" parent="Area2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -65.0
+offset_right = 20.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.967739, 1)
+pivot_offset = Vector2(20, 5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+show_percentage = false
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(1.5, 0.75)
+radius = 10.92

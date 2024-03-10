@@ -1,13 +1,17 @@
 extends CharacterBody2D
 
 # Speed of the character
-var speed = 200
+var speed = 150
 var health = 100
 @export var canvas : CanvasLayer
 
 var tilemap: TileMap
 func _ready():
 	tilemap = $"../../TileMap"
+
+
+var moving = false
+var chopping = false
 
 func _process(delta):
 	# Read input
@@ -35,27 +39,33 @@ func _process(delta):
 	# Move the character
 	move_and_slide()
 	
+	
 	if Input.is_action_just_pressed("Chop") and tree != null:
-		var text = $"../CanvasLayer/HBoxContainer/VBoxContainer2/Label2".text
-		$"../CanvasLayer/HBoxContainer/VBoxContainer2/Label2".text = str(int(text) + 1)
+		var text = $"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text
+		$"../CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer3/Label2".text = str(int(text) + 1)
 		if tree.take_damage(40): 
-			var pos = tilemap.local_to_map(tree.position)
+			tree = null
 			
-			tilemap.set_cell(1, pos, 2, tilemap.get_cell_atlas_coords(1, pos) + Vector2i(0, 0))
+	if Input.is_action_just_pressed("Chop"):
+		chopping = true
+	elif Input.is_action_just_released("Chop"):
+		chopping = true
+		
+	moving = velocity.length() > 0
 
-			tilemap.set_cell(1, pos + Vector2i(-1, -1))
-			tilemap.set_cell(1, pos + Vector2i(0, -1), 2, tilemap.get_cell_atlas_coords(1, pos) + Vector2i(3, -1))
-			tilemap.set_cell(1, pos + Vector2i(1, -1))
-			
-			tilemap.set_cell(1, pos + Vector2i(-1, -2))
-			tilemap.set_cell(1, pos + Vector2i(0, -2))
-			tilemap.set_cell(1, pos + Vector2i(1, -2))
-			
-			tilemap.set_cell(1, pos + Vector2i(-1, -3))
-			tilemap.set_cell(1, pos + Vector2i(0, -3))
-			tilemap.set_cell(1, pos + Vector2i(1, -3))
-			
-			tilemap.set_cell(2, pos)
+
+func _physics_process(delta):
+	
+	
+	
+	if moving:
+		$Node2D/AnimatedSprite2D.play("run")
+	else:
+		$Node2D/AnimatedSprite2D.stop()
+
+	if chopping:
+		$Node2D/AnimatedSprite2D.play("chop")
+	
 	
 
 func _dead():
